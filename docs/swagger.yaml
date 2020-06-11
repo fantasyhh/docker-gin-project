@@ -1,0 +1,381 @@
+definitions:
+  app.FailJSONResult:
+    properties:
+      'detail ':
+        type: string
+      error:
+        type: string
+      msg:
+        type: string
+    type: object
+  app.JSONResult:
+    properties:
+      data:
+        type: object
+      msg:
+        type: string
+    type: object
+  models.Product:
+    properties:
+      MSRP:
+        type: number
+      buyPrice:
+        type: number
+      productCode:
+        type: string
+      productDescription:
+        type: string
+      productLine:
+        type: string
+      productName:
+        type: string
+      productScale:
+        type: string
+      productVendor:
+        type: string
+      quantityInStock:
+        type: integer
+    required:
+    - MSRP
+    - buyPrice
+    - productCode
+    - productDescription
+    - productLine
+    - productName
+    - productScale
+    - productVendor
+    - quantityInStock
+    type: object
+  models.ProductLine:
+    properties:
+      htmlDescription:
+        type: string
+      image:
+        type: string
+      productLine:
+        type: string
+      products:
+        items:
+          $ref: '#/definitions/models.Product'
+        type: array
+      textDescription:
+        type: string
+    required:
+    - productLine
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/v1/productlines:
+    get:
+      consumes:
+      - application/json
+      description: get all productLines
+      parameters:
+      - description: page num
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: List productLines
+      tags:
+      - ProductLine
+    post:
+      consumes:
+      - application/json
+      description: Create one productLine by json productLine
+      parameters:
+      - description: create productLine
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProductLine'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: Create a productLine
+      tags:
+      - ProductLine
+  /api/v1/productlines/{pk}:
+    delete:
+      consumes:
+      - application/json
+      description: Destroy a productLine by pk
+      parameters:
+      - description: pk is ProductLine
+        in: path
+        name: pk
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: Destroy a productLine
+      tags:
+      - ProductLine
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a productLine by pk
+      parameters:
+      - description: pk is ProductLine
+        in: path
+        name: pk
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: Retrieve a productLine
+      tags:
+      - ProductLine
+    patch:
+      consumes:
+      - application/json
+      description: Update a productLine by json productLine
+      parameters:
+      - description: pk is ProductLine
+        in: path
+        name: pk
+        required: true
+        type: string
+      - description: partial update productLine
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProductLine'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: Update a productLine
+      tags:
+      - ProductLine
+  /api/v1/productlines/{pk}/products:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: pk is ProductLine
+        in: path
+        name: pk
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: Product In Line List
+      tags:
+      - ProductLine
+  /api/v1/products:
+    get:
+      consumes:
+      - application/json
+      description: get all products
+      parameters:
+      - description: page num
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: List products
+      tags:
+      - Product
+    post:
+      consumes:
+      - application/json
+      description: Create one product by json product
+      parameters:
+      - description: create product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/models.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: Create a product
+      tags:
+      - Product
+  /api/v1/products/{pk}:
+    delete:
+      consumes:
+      - application/json
+      description: Destroy a product by pk
+      parameters:
+      - description: pk is ProductCode
+        in: path
+        name: pk
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: Destroy a product
+      tags:
+      - Product
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a product by pk
+      parameters:
+      - description: pk is ProductCode
+        in: path
+        name: pk
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: Retrieve a product
+      tags:
+      - Product
+    patch:
+      consumes:
+      - application/json
+      description: Update a product by json product
+      parameters:
+      - description: pk is ProductCode
+        in: path
+        name: pk
+        required: true
+        type: string
+      - description: partial update product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/models.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/app.JSONResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/app.FailJSONResult'
+      summary: Update a product
+      tags:
+      - Product
+  /ping:
+    get:
+      description: This is a test function
+      responses:
+        "200":
+          description: pong
+          schema:
+            type: string
+      summary: PING
+      tags:
+      - PING
+swagger: "2.0"

@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_c
+    ports:
+      - "8000:8080"
+    volumes:
+      - ./runtime/upload/images:/src/images
+      - ./compose/nginx:/etc/nginx/conf.d
+    depends_on:
+      - web
+    networks:
+      - ginnetwork
+
+  web:
+    build:
+      context: .
+      dockerfile: compose/gin/Dockerfile
+    container_name: web_c
+    depends_on:
+      - db
+    expose:
+      - "8080"
+    networks:
+      - ginnetwork
+
+  db:
+    image: "mysql:latest"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootroot
+      MYSQL_DATABASE: gindb
+      MYSQL_USER: baird
+      MYSQL_PASSWORD: sjh7895123
+    container_name: db_c
+    volumes:
+      - ./compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - ginnetwork
+    ports:
+      - "3306:3306"
+
+networks:
+  ginnetwork:
+    name: ginnetwork
+    driver: bridge
