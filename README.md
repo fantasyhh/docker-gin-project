@@ -22,3 +22,20 @@
 2. ！！！ `docker-compose`第一次启动 web以及nginx都会不成功，因为db服务会导入数据库源文件，因为里面数据记录较多需要等个半分钟，再手动启动web以及nginx服务，这只会在第一次的时候发生
 3. docker这边测试端口为8000，本地我改为了5000
 4. swagger为http://127.0.0.1:8000/swagger/index.html
+5. 如果不用docker必须自带mysq并导入相关数据
+
+
+运行的话直接 `docker-compose up -d`
+
+## 6.17更新
+
+使用了官方示例的log配置
+```python
+// Disable Console Color, you don't need console color when writing the logs to file.
+gin.DisableConsoleColor()
+
+// Logging to a file.
+f, _ := os.Create("gin.log")
+gin.DefaultWriter = io.MultiWriter(f)
+```
+但只有请求信息，自己的`log.println`没法存储到文件里

@@ -11,6 +11,7 @@ import (
 // @Success 200 {string} string "pong"
 // @Router /ping [get]
 func PING(c *gin.Context) {
+	//log.Println("this is a log test")
 	c.JSON(200, gin.H{
 		"message": "pong",
 	})
