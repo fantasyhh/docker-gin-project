@@ -82,15 +82,15 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 		//在登录授权用户时发生任何错误，或者在请求中没有传递令牌或无效令牌时，将发生以下情况
 		Unauthorized: func(c *gin.Context, code int, message string) {
 			c.JSON(code, gin.H{
-				"error":  e.AuthFail,
-				"msg":    e.GetMsg(e.AuthFail),
+				"msg":    e.ErrAuthFail,
 				"detail": message,
 			})
 		},
 		// 注销成功
 		LogoutResponse: func(c *gin.Context, code int) {
 			c.JSON(http.StatusOK, gin.H{
-				"msg": e.GetMsg(e.LogoutSuccess),
+				"msg": "注销成功",
+				"data": nil,
 			})
 		},
 		// TokenLookup is a string in the form of "<source>:<name>" that is used

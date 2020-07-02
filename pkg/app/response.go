@@ -1,7 +1,6 @@
 package app
 
 import (
-	"github.com/fantasyhh/drizzle/pkg/e"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,11 +10,10 @@ type Gin struct {
 }
 
 // FailResponse return fail response
-func (g *Gin) FailResponse(httpCode int, flag string, err error) {
+func (g *Gin) FailResponse(httpCode int, msg error, detail error) {
 	g.C.JSON(httpCode, gin.H{
-		"error":  flag,
-		"msg":    e.GetMsg(flag),
-		"detail": err.Error(),
+		"msg":    msg.Error(),
+		"detail": detail.Error(),
 	})
 	return
 }
@@ -23,21 +21,20 @@ func (g *Gin) FailResponse(httpCode int, flag string, err error) {
 // Response return success response
 func (g *Gin) Response(httpCode int, data interface{}) {
 	g.C.JSON(httpCode, gin.H{
+		"msg":  "ok",
 		"data": data,
-		"msg":  e.GetMsg(e.CommonSuccess),
 	})
 	return
 }
 
 // FailJSONResult struct for Swagger
 type FailJSONResult struct {
-	Error  string `json:"error"`
 	Msg    string `json:"msg"`
 	Detail string `json:"detail "`
 }
 
 // JSONResult struct for Swagger
 type JSONResult struct {
-	Data interface{} `json:"data"`
 	Msg  string      `json:"msg"`
+	Data interface{} `json:"data"`
 }

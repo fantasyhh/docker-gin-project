@@ -30,7 +30,7 @@ func ProductList(c *gin.Context) {
 
 	products, err := models.ProductList(util.GetPage(c), setting.AppSetting.PageSize)
 	if err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.ListProductFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrListProductFail, err)
 		return
 	}
 
@@ -56,13 +56,13 @@ func ProductRetrieve(c *gin.Context) {
 
 	if isExist := models.ExistProduct(pk); isExist == false {
 		existErr := errors.New("不存在的主键或未知错误")
-		appG.FailResponse(http.StatusNotFound, e.RetrieveProductFail, existErr)
+		appG.FailResponse(http.StatusNotFound, e.ErrRetrieveProductFail, existErr)
 		return
 	}
 
 	product, err := models.ProductRetrieve(pk)
 	if err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.RetrieveProductFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrRetrieveProductFail, err)
 		return
 	}
 
@@ -84,19 +84,19 @@ func ProductCreate(c *gin.Context) {
 	var jsonData models.Product
 
 	if err := c.ShouldBindJSON(&jsonData); err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.CreateProductFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrCreateProductFail, err)
 		return
 	}
 
 	if isExist := models.ExistProduct(jsonData.ProductCode); isExist == true {
 		existErr := errors.New("已经存在相同主键无法创建或未知错误")
-		appG.FailResponse(http.StatusBadRequest, e.RetrieveProductFail, existErr)
+		appG.FailResponse(http.StatusBadRequest, e.ErrRetrieveProductFail, existErr)
 		return
 	}
 
 	p, err := models.ProductCreate(jsonData)
 	if err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.CreateProductFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrCreateProductFail, err)
 		return
 	}
 
@@ -121,7 +121,7 @@ func ProductUpdate(c *gin.Context) {
 
 	if isExist := models.ExistProduct(pk); isExist == false {
 		existErr := errors.New("不存在的主键或未知错误")
-		appG.FailResponse(http.StatusNotFound, e.UpdateProductFail, existErr)
+		appG.FailResponse(http.StatusNotFound, e.ErrUpdateProductFail, existErr)
 		return
 	}
 
@@ -129,13 +129,13 @@ func ProductUpdate(c *gin.Context) {
 	decoder := json.NewDecoder(c.Request.Body)
 
 	if err := decoder.Decode(&jsonData); err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.UpdateProductFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrUpdateProductFail, err)
 		return
 	}
 
 	p, err := models.ProductUpdate(pk, jsonData)
 	if err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.UpdateProductFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrUpdateProductFail, err)
 		return
 	}
 
@@ -158,12 +158,12 @@ func ProductDestroy(c *gin.Context) {
 
 	if isExist := models.ExistProduct(pk); isExist == false {
 		existErr := errors.New("不存在的主键或未知错误")
-		appG.FailResponse(http.StatusNotFound, e.DestroyProductFail, existErr)
+		appG.FailResponse(http.StatusNotFound, e.ErrDestroyProductFail, existErr)
 		return
 	}
 
 	if err := models.ProductDestroy(pk); err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.DestroyProductFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrDestroyProductFail, err)
 		return
 	}
 

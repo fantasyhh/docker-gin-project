@@ -1,59 +1,37 @@
 package e
 
-// 一些错误短语
-const (
-	ListProductFail     = "ListProductFail"
-	RetrieveProductFail = "RetrieveProductFail"
-	CreateProductFail   = "CreateProductFail"
-	UpdateProductFail   = "UpdateProductFail"
-	DestroyProductFail  = "DestroyProductFail"
+import "errors"
 
-	ListProductLineFail     = "ListProductLineFail"
-	RetrieveProductLineFail = "RetrieveProductLineFail"
-	CreateProductLineFail   = "CreateProductLineFail"
-	UpdateProductLineFail   = "UpdateProductLineFail"
-	DestroyProductLineFail  = "DestroyProductLineFail"
-	ListProductInLineFail   = "ListProductInLineFail"
+var (
+	// ErrListProductFail indicates fail to list product
+	ErrListProductFail = errors.New("展示所有产品失败")
+	// ErrRetrieveProductFail indicates fail to retrieve product
+	ErrRetrieveProductFail = errors.New("取回单个产品失败")
+	// ErrCreateProductFail indicates fail to create product
+	ErrCreateProductFail = errors.New("创建产品失败")
+	// ErrUpdateProductFail indicates fail to update product
+	ErrUpdateProductFail = errors.New("更新产品失败")
+	// ErrDestroyProductFail indicates fail to destroy product
+	ErrDestroyProductFail = errors.New("删除产品失败")
 
-	AuthFail      = "AuthFail"
-	LoginSuccess  = "LoginSuccess"
-	LogoutSuccess = "LogoutSuccess"
+	// ErrListProductLineFail indicates fail to list productline
+	ErrListProductLineFail = errors.New("展示所有产线失败")
+	// ErrRetrieveProductLineFail indicates fail to retrieve productline
+	ErrRetrieveProductLineFail = errors.New("取回单条产线失败")
+	// ErrCreateProductLineFail indicates fail to create productline
+	ErrCreateProductLineFail = errors.New("创建产线失败")
+	// ErrUpdateProductLineFail indicates fail to update productline
+	ErrUpdateProductLineFail = errors.New("更新产线失败")
+	// ErrDestroyProductLineFail indicates fail to destroy productline
+	ErrDestroyProductLineFail = errors.New("删除产线失败")
+	// ErrListProductInLineFail indicates fail to list all products productline
+	ErrListProductInLineFail = errors.New("获取产线中的所有产品失败")
 
-	UploadFail    = "UploadFail"
-	UnknownError  = "UnknownError"
-	CommonSuccess = "Ok"
+	// ErrAuthFail indicates fail to login
+	ErrAuthFail = errors.New("用户认证失败")
+
+	// ErrUploadFail indicates fail to upload file
+	ErrUploadFail = errors.New("上传文件失败")
+
+	//ErrUnknownError = errors.New("未知错误")
 )
-
-// FlagMsgs 表示错误短语对应的信息
-var FlagMsgs = map[string]string{
-	ListProductFail:     "展示所有产品失败",
-	RetrieveProductFail: "取回单个产品失败",
-	CreateProductFail:   "创建产品失败",
-	UpdateProductFail:   "更新产品失败",
-	DestroyProductFail:  "删除产品失败",
-
-	ListProductLineFail:     "展示所有产线失败",
-	RetrieveProductLineFail: "取回单条产线失败",
-	CreateProductLineFail:   "创建产线失败",
-	UpdateProductLineFail:   "更新产线失败",
-	DestroyProductLineFail:  "删除产线失败",
-	ListProductInLineFail:   "获取产线中的所有产品失败",
-
-	AuthFail:      "用户认证失败",
-	LoginSuccess:  "用户登录成功",
-	LogoutSuccess: "用户注销成功",
-
-	UploadFail:    "上传文件失败",
-	UnknownError:  "未知错误",
-	CommonSuccess: "成功",
-}
-
-// GetMsg get error information based on Code
-func GetMsg(flag string) string {
-	msg, ok := FlagMsgs[flag]
-	if ok {
-		return msg
-	}
-
-	return FlagMsgs["UnknownError"]
-}

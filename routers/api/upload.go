@@ -17,12 +17,12 @@ func UploadImage(c *gin.Context) {
 	//f, err := fhs[0].Open() ; return f, fhs[0], err ===>  file == image.Open()
 	file, image, err := c.Request.FormFile("image")
 	if err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.UploadFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrUploadFail, err)
 		return
 	}
 
 	if image == nil {
-		appG.FailResponse(http.StatusBadRequest, e.UploadFail, nil)
+		appG.FailResponse(http.StatusBadRequest, e.ErrUploadFail, nil)
 		return
 	}
 
@@ -33,18 +33,18 @@ func UploadImage(c *gin.Context) {
 
 	if !upload.CheckImageExt(imageName) || !upload.CheckImageSize(file) {
 		err = errors.New("上传文件格式不准确")
-		appG.FailResponse(http.StatusBadRequest, e.UploadFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrUploadFail, err)
 		return
 	}
 
 	err = upload.CheckImage(fullPath)
 	if err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.UploadFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrUploadFail, err)
 		return
 	}
 
 	if err := c.SaveUploadedFile(image, src); err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.UploadFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrUploadFail, err)
 		return
 	}
 

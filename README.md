@@ -39,3 +39,8 @@ f, _ := os.Create("gin.log")
 gin.DefaultWriter = io.MultiWriter(f)
 ```
 但只有请求信息，自己的`log.println`没法存储到文件里
+
+## 7.2更新
+`e/msg.go`更新了新的error信息,看到并参考了jwt中间件中的源码定义，类似于：
+
+`ErrListProductFail = errors.New("展示所有产品失败")`

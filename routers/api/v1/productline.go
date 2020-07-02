@@ -27,7 +27,7 @@ func ProductLineList(c *gin.Context) {
 
 	products, err := models.ProductLineList(util.GetPage(c), setting.AppSetting.PageSize)
 	if err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.ListProductLineFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrListProductLineFail, err)
 		return
 	}
 
@@ -53,13 +53,13 @@ func ProductLineRetrieve(c *gin.Context) {
 
 	if isExist := models.ExistProductLine(pk); isExist == false {
 		existErr := errors.New("不存在的主键或未知错误")
-		appG.FailResponse(http.StatusNotFound, e.RetrieveProductLineFail, existErr)
+		appG.FailResponse(http.StatusNotFound, e.ErrRetrieveProductLineFail, existErr)
 		return
 	}
 
 	product, err := models.ProductLineRetrieve(pk)
 	if err != nil {
-		appG.FailResponse(http.StatusNotFound, e.RetrieveProductLineFail, err)
+		appG.FailResponse(http.StatusNotFound, e.ErrRetrieveProductLineFail, err)
 		return
 	}
 
@@ -81,20 +81,20 @@ func ProductLineCreate(c *gin.Context) {
 	var jsonData models.ProductLine
 
 	if err := c.ShouldBindJSON(&jsonData); err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.CreateProductLineFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrCreateProductLineFail, err)
 		//appG.FailResponse(http.StatusBadRequest, err.Error())
 		return
 	}
 
 	if isExist := models.ExistProductLine(jsonData.ProductLine); isExist == true {
 		existErr := errors.New("已经存在相同主键无法创建或未知错误")
-		appG.FailResponse(http.StatusBadRequest, e.CreateProductLineFail, existErr)
+		appG.FailResponse(http.StatusBadRequest, e.ErrCreateProductLineFail, existErr)
 		return
 	}
 
 	p, err := models.ProductLineCreate(jsonData)
 	if err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.CreateProductLineFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrCreateProductLineFail, err)
 		//appG.FailResponse(http.StatusBadRequest, err.Error())
 		return
 	}
@@ -120,7 +120,7 @@ func ProductLineUpdate(c *gin.Context) {
 
 	if isExist := models.ExistProductLine(pk); isExist == false {
 		existErr := errors.New("不存在的主键或未知错误")
-		appG.FailResponse(http.StatusNotFound, e.UpdateProductLineFail, existErr)
+		appG.FailResponse(http.StatusNotFound, e.ErrUpdateProductLineFail, existErr)
 		return
 	}
 
@@ -128,13 +128,13 @@ func ProductLineUpdate(c *gin.Context) {
 	decoder := json.NewDecoder(c.Request.Body)
 
 	if err := decoder.Decode(&jsonData); err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.UpdateProductLineFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrUpdateProductLineFail, err)
 		return
 	}
 
 	p, err := models.ProductLineUpdate(pk, jsonData)
 	if err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.UpdateProductLineFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrUpdateProductLineFail, err)
 		return
 	}
 
@@ -157,12 +157,12 @@ func ProductLineDestroy(c *gin.Context) {
 
 	if isExist := models.ExistProductLine(pk); isExist == false {
 		existErr := errors.New("不存在的主键或未知错误")
-		appG.FailResponse(http.StatusNotFound, e.DestroyProductLineFail, existErr)
+		appG.FailResponse(http.StatusNotFound, e.ErrDestroyProductLineFail, existErr)
 		return
 	}
 
 	if err := models.ProductLineDestroy(pk); err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.DestroyProductLineFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrDestroyProductLineFail, err)
 		return
 	}
 
@@ -186,13 +186,13 @@ func ProductInLineList(c *gin.Context) {
 
 	if isExist := models.ExistProductLine(pk); isExist == false {
 		existErr := errors.New("不存在的主键或未知错误")
-		appG.FailResponse(http.StatusNotFound, e.DestroyProductLineFail, existErr)
+		appG.FailResponse(http.StatusNotFound, e.ErrDestroyProductLineFail, existErr)
 		return
 	}
 
 	products, err := models.ProductInLine(pk)
 	if err != nil {
-		appG.FailResponse(http.StatusBadRequest, e.ListProductInLineFail, err)
+		appG.FailResponse(http.StatusBadRequest, e.ErrListProductInLineFail, err)
 		return
 	}
 
