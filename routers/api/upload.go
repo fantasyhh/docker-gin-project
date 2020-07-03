@@ -10,6 +10,7 @@ import (
 	"github.com/fantasyhh/drizzle/pkg/e"
 	"github.com/fantasyhh/drizzle/pkg/upload"
 )
+
 // UploadImage represent upload image handler
 func UploadImage(c *gin.Context) {
 	appG := app.Gin{C: c}

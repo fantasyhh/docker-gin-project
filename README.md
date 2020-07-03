@@ -44,3 +44,6 @@ gin.DefaultWriter = io.MultiWriter(f)
 `e/msg.go`更新了新的error信息,看到并参考了jwt中间件中的源码定义，类似于：
 
 `ErrListProductFail = errors.New("展示所有产品失败")`
+
+## 7.3更新
+修改部分语法，例如 将`isExist == false`改为`!isExist`，遵循`golint`，`golangci-lint`给的建议

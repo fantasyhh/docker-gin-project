@@ -5,7 +5,7 @@ import (
 	"github.com/fantasyhh/drizzle/pkg/upload"
 	"github.com/gin-gonic/gin"
 	"net/http"
-    // swagger doc
+	// swagger doc
 	_ "github.com/fantasyhh/drizzle/docs"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"

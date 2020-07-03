@@ -15,7 +15,6 @@ func (g *Gin) FailResponse(httpCode int, msg error, detail error) {
 		"msg":    msg.Error(),
 		"detail": detail.Error(),
 	})
-	return
 }
 
 // Response return success response
@@ -24,7 +23,6 @@ func (g *Gin) Response(httpCode int, data interface{}) {
 		"msg":  "ok",
 		"data": data,
 	})
-	return
 }
 
 // FailJSONResult struct for Swagger

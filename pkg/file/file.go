@@ -36,7 +36,7 @@ func CheckPermission(src string) bool {
 
 // IsNotExistMkDir create a directory if it does not exist
 func IsNotExistMkDir(src string) error {
-	if notExist := CheckNotExist(src); notExist == true {
+	if notExist := CheckNotExist(src); notExist {
 		if err := MkDir(src); err != nil {
 			return err
 		}
@@ -74,7 +74,7 @@ func MustOpen(fileName, filePath string) (*os.File, error) {
 
 	src := dir + "/" + filePath
 	perm := CheckPermission(src)
-	if perm == true {
+	if perm {
 		return nil, fmt.Errorf("file.CheckPermission Permission denied src: %s", src)
 	}
 

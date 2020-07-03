@@ -51,7 +51,7 @@ func ProductLineRetrieve(c *gin.Context) {
 	pk := c.Param("pk")
 	appG := app.Gin{C: c}
 
-	if isExist := models.ExistProductLine(pk); isExist == false {
+	if isExist := models.ExistProductLine(pk); !isExist {
 		existErr := errors.New("不存在的主键或未知错误")
 		appG.FailResponse(http.StatusNotFound, e.ErrRetrieveProductLineFail, existErr)
 		return
@@ -86,7 +86,7 @@ func ProductLineCreate(c *gin.Context) {
 		return
 	}
 
-	if isExist := models.ExistProductLine(jsonData.ProductLine); isExist == true {
+	if isExist := models.ExistProductLine(jsonData.ProductLine); isExist {
 		existErr := errors.New("已经存在相同主键无法创建或未知错误")
 		appG.FailResponse(http.StatusBadRequest, e.ErrCreateProductLineFail, existErr)
 		return
@@ -118,7 +118,7 @@ func ProductLineUpdate(c *gin.Context) {
 	pk := c.Param("pk")
 	appG := app.Gin{C: c}
 
-	if isExist := models.ExistProductLine(pk); isExist == false {
+	if isExist := models.ExistProductLine(pk); !isExist {
 		existErr := errors.New("不存在的主键或未知错误")
 		appG.FailResponse(http.StatusNotFound, e.ErrUpdateProductLineFail, existErr)
 		return
@@ -155,7 +155,7 @@ func ProductLineDestroy(c *gin.Context) {
 	pk := c.Param("pk")
 	appG := app.Gin{C: c}
 
-	if isExist := models.ExistProductLine(pk); isExist == false {
+	if isExist := models.ExistProductLine(pk); !isExist {
 		existErr := errors.New("不存在的主键或未知错误")
 		appG.FailResponse(http.StatusNotFound, e.ErrDestroyProductLineFail, existErr)
 		return
@@ -184,7 +184,7 @@ func ProductInLineList(c *gin.Context) {
 	pk := c.Param("pk")
 	appG := app.Gin{C: c}
 
-	if isExist := models.ExistProductLine(pk); isExist == false {
+	if isExist := models.ExistProductLine(pk); !isExist {
 		existErr := errors.New("不存在的主键或未知错误")
 		appG.FailResponse(http.StatusNotFound, e.ErrDestroyProductLineFail, existErr)
 		return

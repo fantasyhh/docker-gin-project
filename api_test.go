@@ -146,7 +146,6 @@ func TestAPI(t *testing.T) {
 		Expect().
 		Status(http.StatusNoContent)
 
-
 	// *************test logout*************
 	auth.GET("/logout").
 		Expect().

@@ -89,7 +89,7 @@ func AuthMiddleware() *jwt.GinJWTMiddleware {
 		// 注销成功
 		LogoutResponse: func(c *gin.Context, code int) {
 			c.JSON(http.StatusOK, gin.H{
-				"msg": "注销成功",
+				"msg":  "注销成功",
 				"data": nil,
 			})
 		},
